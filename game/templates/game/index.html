@@ -1,0 +1,17 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <title>Pac-Man Versão Rápida</title>
+  <link rel="stylesheet" href="{% static 'game/style.css' %}">
+</head>
+<body>
+  <h1>Pac-Man Versão Rápida</h1>
+  <canvas id="gameCanvas" width="448" height="496"></canvas>
+  <div class="hud">Pontuação: <span id="score">0</span></div>
+  <div class="controls">Setas: ↑ ↓ ← → &nbsp; | &nbsp; R = reiniciar</div>
+
+  <script src="{% static 'game/game.js' %}"></script>
+</body>
+</html>

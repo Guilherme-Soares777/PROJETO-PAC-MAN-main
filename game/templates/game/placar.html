@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'game/style.css' %}">
+
+<div style="width: 448px; margin: 0 auto; text-align: center;"> 
+    
+    <h1>Placar de Líderes</h1>
+
+    {% if pontuacoes %}
+        <ol style="color: white; font-size: 18px; text-align: left; display: inline-block; margin-top: 20px;">
+            
+            {% for p in pontuacoes %}
+                <li>
+                    <strong>{{ p.usuario.username }}</strong> - {{ p.pontos }} pontos
+                </li>
+            {% endfor %}
+
+        </ol>
+    {% else %}
+        <p style="color: #aaa;">Nenhuma pontuação registrada ainda.</p>
+    {% endif %}
+
+    <br>
+    <br>
+    
+    <a href="{% url 'game:index' %}" style="color: yellow; font-size: 20px;">
+        &laquo; Voltar ao Jogo
+    </a>
+</div>
