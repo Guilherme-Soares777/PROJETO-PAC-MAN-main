@@ -2,21 +2,20 @@
 
 Este é um projeto desenvolvido para a disciplina de Frameworks Backend, conectando um jogo clássico de Pac-Man (frontend) a um backend robusto em Django/Python.
 
-O objetivo principal era demonstrar o uso de um framework backend para criar uma aplicação web completa, incluindo persistência de dados, autenticação de usuários e uma API para comunicação entre o cliente (jogo) e o servidor.
+O objetivo principal era demonstrar o uso de um framework backend para criar uma aplicação web completa, incluindo persistência de dados e uma API para comunicação entre o cliente (jogo) e o servidor.
 
 ## 🚀 Funcionalidades Implementadas
 
 * **Banco de Dados de Pontuação:** As pontuações finais de cada partida são salvas em um banco de dados SQLite.
-* **Sistema de Autenticação:** As pontuações são ligadas ao usuário que está logado no sistema.
-* **API para Salvar Scores:** Uma view (`salvar_pontuacao`) funciona como um endpoint que recebe a pontuação do JavaScript (`game.js`) e a salva no banco.
-* **Placar de Líderes:** Uma nova página (`/placar/`) que lê o banco de dados e exibe as 10 maiores pontuações registradas.
-* **Painel de Admin:** A tabela `Pontuacao` é gerenciável através da interface de admin padrão do Django (`/admin/`).
+* **Sistema de Nomes de Jogador:** Em vez de um login complexo, o jogo captura o nome do jogador em um modal ao final da partida, no estilo arcade clássico. As pontuações são salvas ligadas a esse nome.
+* **API para Salvar Scores:** Uma view (`salvar_pontuacao`) funciona como um endpoint que recebe o **nome** e a **pontuação** do JavaScript e os salva no banco.
+* **Placar de Líderes Pop-up:** Ao fim do jogo, um modal (pop-up) aparece na tela, buscando e exibindo as 10 maiores pontuações em tempo real.
+* **(Opcional) Página de Placar:** Uma página separada (`/placar/`) também lista todos os recordes.
+* **(Opcional) Painel de Admin:** A tabela `Pontuacao` pode ser inspecionada (mas não é necessária para jogar) através da interface de admin padrão do Django (`/admin/`).
 
 ## ⚙️ Como Rodar o Projeto (Instalação)
 
 Para rodar este projeto na sua máquina, siga os passos abaixo no seu terminal.
-
-*(Estas são as instruções que você mesmo escreveu, formatadas para o GitHub)*
 
 1.  **Clone o repositório:**
     ```bash
@@ -40,27 +39,22 @@ Para rodar este projeto na sua máquina, siga os passos abaixo no seu terminal.
     ```
 
 5.  **Crie o Banco de Dados:**
+    (Isso cria o `db.sqlite3` e a tabela de pontuação)
     ```bash
     python manage.py migrate
     ```
 
-6.  **Crie seu Usuário Admin:**
-    ```bash
-    python manage.py createsuperuser
-    ```
-
-7.  **Rode o Projeto!**
+6.  **Rode o Projeto!**
+    (Você não precisa mais criar um admin para jogar!)
     ```bash
     python manage.py runserver
     ```
 
 ## 🎮 Como Jogar
 
-1.  Para que o sistema saiba quem você é, primeiro acesse o painel de admin e faça login:
-    `http://127.0.0.1:8000/admin/`
-
-2.  Depois de logar, acesse a página do jogo:
+1.  Acesse a página do jogo:
     `http://127.0.0.1:8000/`
 
-3.  Para ver o placar, acesse:
-    `http://127.0.0.1:8000/placar/`
+2.  Jogue uma partida.
+
+3.  Ao perder, o jogo irá parar e um placar pop-up aparecerá. Digite seu nome e clique em "Salvar e Jogar" para registrar seu recorde e começar de novo!
