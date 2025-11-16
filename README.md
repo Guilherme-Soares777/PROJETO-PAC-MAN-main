@@ -10,7 +10,6 @@ O objetivo principal era demonstrar o uso de um framework backend para criar uma
 * **Sistema de Nomes de Jogador:** Em vez de um login complexo, o jogo captura o nome do jogador em um modal ao final da partida, no estilo arcade clássico. As pontuações são salvas ligadas a esse nome.
 * **API para Salvar Scores:** Uma view (`salvar_pontuacao`) funciona como um endpoint que recebe o **nome** e a **pontuação** do JavaScript e os salva no banco.
 * **Placar de Líderes Pop-up:** Ao fim do jogo, um modal (pop-up) aparece na tela, buscando e exibindo as 10 maiores pontuações em tempo real.
-* **(Opcional) Página de Placar:** Uma página separada (`/placar/`) também lista todos os recordes.
 * **(Opcional) Painel de Admin:** A tabela `Pontuacao` pode ser inspecionada (mas não é necessária para jogar) através da interface de admin padrão do Django (`/admin/`).
 
 ## ⚙️ Como Rodar o Projeto (Instalação)
@@ -45,7 +44,7 @@ Para rodar este projeto na sua máquina, siga os passos abaixo no seu terminal.
     ```
 
 6.  **Rode o Projeto!**
-    (Você não precisa mais criar um admin para jogar!)
+    (Você não precisa criar um admin para jogar)
     ```bash
     python manage.py runserver
     ```
