@@ -1,52 +1,58 @@
-
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 import json
 from .models import Pontuacao
 
-# Garante que só usuários logados possam jogar
-@login_required
 def index(request):
-    """Serve a página principal do jogo."""
+    """Serve a página principal do jogo (index.html)."""
     return render(request, 'game/index.html')
 
-
-@login_required
-@require_POST  # Só permite que esta view receba dados (via POST)
+@require_POST
 def salvar_pontuacao(request):
-    """Recebe e salva a pontuação do jogador no banco de dados."""
+    """
+    Recebe um NOME e um SCORE (via JSON) do JavaScript 
+    e os salva no banco de dados.
+    """
     try:
-        # Tenta ler os dados enviados pelo JavaScript
         data = json.loads(request.body)
         score_recebido = data.get('score')
+        nome_recebido = data.get('nome') 
 
-        if score_recebido is not None:
-            pontos = int(score_recebido) 
+        if score_recebido is not None and nome_recebido:
+            pontos = int(score_recebido)
+            nome = str(nome_recebido).strip()[:50] 
             
-            # Cria o registro da pontuação associado ao usuário logado
-            Pontuacao.objects.create(usuario=request.user, pontos=pontos)
+            if not nome: # Garante que o nome não seja vazio
+                nome = "JOGADOR 1"
             
+            Pontuacao.objects.create(nome_jogador=nome, pontos=pontos)
             return JsonResponse({'status': 'ok'})
         else:
-            # O JavaScript enviou dados, mas a chave 'score' estava faltando
-            return JsonResponse({'status': 'score_nao_encontrado'}, status=400)
-            
+            return JsonResponse({'status': 'dados_incompletos'}, status=400)
     except Exception as e:
-        # Captura qualquer erro (JSON mal formatado, falha no 'int', etc.)
         return JsonResponse({'status': 'erro_servidor', 'mensagem': str(e)}, status=500)
 
-
 def placar_lideres(request):
-    """Busca as 10 maiores pontuações e as exibe na página do placar."""
-    
-    # Busca as 10 maiores pontuações, ordenadas da maior para a menor
+    """
+    Busca as 10 maiores pontuações e as exibe na página
+    de placar separada (/placar/).
+    """
+    top_scores = Pontuacao.objects.order_by('-pontos').all()[:10]
+    contexto = { 'pontuacoes': top_scores }
+    return render(request, 'game/placar.html', contexto)
+
+def get_placar_json(request):
+    """
+    Busca as 10 maiores pontuações e as retorna como dados JSON
+    para o modal (pop-up) do jogo.
+    """
     top_scores = Pontuacao.objects.order_by('-pontos').all()[:10]
     
-    # Envia a lista de pontuações para o template HTML
-    contexto = {
-        'pontuacoes': top_scores
-    }
+    # Transforma os dados do banco em uma lista que o JSON entende
+    data = [
+        {"usuario": s.nome_jogador, "pontos": s.pontos}
+        for s in top_scores
+    ]
     
-    return render(request, 'game/placar.html', contexto)
+    return JsonResponse(data, safe=False)

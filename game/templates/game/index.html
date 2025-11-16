@@ -3,14 +3,36 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
-  <title>Pac-Man Versão Rápida</title>
+  <title>Pac-Man</title> 
   <link rel="stylesheet" href="{% static 'game/style.css' %}">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Pac-Man Versão Rápida</h1>
+
+  <h1>Pac-Man</h1> 
   <canvas id="gameCanvas" width="448" height="496"></canvas>
+
+  <div id="placar-modal" class="overlay hidden">
+    <div class="modal">
+      <h2>Fim de Jogo!</h2>
+      
+      <div class="nome-input-group">
+          <label for="nomeJogadorInput">Digite seu nome:</label>
+          <input type="text" id="nomeJogadorInput" maxlength="50" value="JOGADOR 1">
+      </div>
+      
+      <h3>Maiores Pontuações:</h3>
+      <ol id="placar-lista"></ol>
+      <button id="btn-restart" class="btn-voltar">Salvar e Jogar</button>
+    </div>
+  </div>
+
+  {% csrf_token %}
+  
   <div class="hud">Pontuação: <span id="score">0</span></div>
-  <div class="controls">Setas: ↑ ↓ ← → &nbsp; | &nbsp; R = reiniciar</div>
+  <div class="controls">Setas: ↑ ↓ ← →</div>
 
   <script src="{% static 'game/game.js' %}"></script>
 </body>

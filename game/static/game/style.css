@@ -1,21 +1,33 @@
+/* Em game/static/game/style.css */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #111;
-  color: #fff;
-  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #111; /* Fundo preto */
+  color: #fff; /* Texto branco */
+  font-family: 'Press Start 2P', cursive; /* NOSSA NOVA FONTE! */
   text-align: center;
+  
+  /* Centraliza todo o conteúdo na tela */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
   margin: 10px;
+  color: #FFFF00; /* Cor Amarela (Pac-Man) */
+  font-size: 1.5em; 
+  text-shadow: 2px 2px #ff0000; /* Sombra vermelha (Fantasma) */
 }
 
 canvas {
-  border: 4px solid #222;
+  border: 4px solid #00FF00; /* Borda verde (Labirinto) */
   background: #000000;
   display: block;
   margin: 0 auto;
@@ -23,12 +35,146 @@ canvas {
 
 .hud {
   margin: 8px;
-  font-size: 18px;
+  font-size: 1em;
+  color: #fff;
 }
 
 .controls {
-  font-size: 13px;
+  font-size: 0.7em;
   color: #aaa;
   margin-top: 4px;
 }
 
+/* --- Estilos da Página de Placar Antiga (ainda úteis) --- */
+ol {
+  color: white;
+  font-size: 1em;
+  text-align: left;
+  display: inline-block; /* Faz a lista se ajustar ao conteúdo */
+  margin-top: 20px;
+  padding-left: 60px; /* Dá espaço para os números */
+}
+
+ol li {
+  padding: 5px 0; /* Espaçamento entre os nomes */
+}
+
+ol li strong {
+  color: #FFFF00; /* Nomes dos jogadores em amarelo */
+  margin-right: 10px;
+}
+
+.btn-voltar {
+  color: #00FF00; /* Verde, como a borda */
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid #00FF00;
+  border-radius: 8px;
+  font-family: 'Press Start 2P', cursive; /* Garante a fonte no botão */
+  cursor: pointer;
+}
+
+.btn-voltar:hover {
+  background: #00FF00;
+  color: #111; /* Cor do fundo */
+  text-shadow: none;
+}
+
+/* --- Estilos Novos para o Modal Pop-up --- */
+
+/* Classe para esconder/mostrar elementos */
+.hidden {
+  display: none !important;
+}
+
+/* O fundo escuro semi-transparente */
+.overlay {
+  position: fixed; /* Fica fixo na tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100; /* Fica na frente de tudo */
+}
+
+/* A caixa branca do modal */
+.modal {
+  background: #111;
+  border: 4px solid #FFFF00; /* Borda amarela */
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #fff;
+}
+
+.modal h2 {
+  color: #ff0000; /* Título "Fim de Jogo" em vermelho */
+  font-size: 1.5em;
+  margin-top: 0;
+}
+
+.modal h3 {
+  color: #fff;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+/* A lista de pontuação dentro do modal */
+.modal ol {
+  font-size: 0.8em; /* Fonte um pouco menor */
+  text-align: left;
+  display: inline-block;
+  margin-top: 0;
+  padding-left: 50px;
+  max-height: 200px; /* Limita a altura caso tenha muitos scores */
+  overflow-y: auto; /* Adiciona scroll se necessário */
+}
+
+.modal ol li {
+  padding: 4px 0;
+}
+
+.modal ol li strong {
+  color: #FFFF00; /* Nomes em amarelo */
+  margin-right: 8px;
+}
+
+/* O botão de 'Jogar Novamente' */
+.modal .btn-voltar {
+  font-size: 0.9em;
+  margin-top: 25px;
+}
+
+.nome-input-group {
+  margin-bottom: 20px;
+}
+.nome-input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #fff;
+}
+.nome-input-group input {
+  background: #333;
+  border: 2px solid #FFFF00;
+  color: #fff;
+  padding: 8px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.9em;
+  text-align: center;
+  width: 80%;
+  border-radius: 4px;
+}
+.nome-input-group input:focus {
+  outline: none;
+  background: #000;
+}
